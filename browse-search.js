@@ -1,5 +1,4 @@
 //search bar input searches collection. user must click search or press enter. searches browse page
-<script>
 const clw = document.getElementById("collection-list-wrapper"),
       cl = document.getElementById("collection-list"),
       sb = document.getElementById("BrowseSearchGeneral"),
@@ -109,4 +108,3 @@ window.onload = function() {
     handleSearch();
   }
 };
-</script>
