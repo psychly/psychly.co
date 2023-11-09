@@ -1,4 +1,6 @@
 //search bar input searches collection. user must click search or press enter. searches browse page
+// External browse-search.js file
+document.addEventListener('DOMContentLoaded', function() {
 const clw = document.getElementById("collection-list-wrapper"),
       cl = document.getElementById("collection-list"),
       sb = document.getElementById("BrowseSearchGeneral"),
@@ -100,11 +102,11 @@ cb.addEventListener("click", function() {
   history.pushState(null, '', window.location.pathname);
 });
 
-window.onload = function() {
+// Initialize the search from the URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   sb.value = urlParams.get('searchGeneral') || '';
   gi.value = urlParams.get('searchLocation') || '';
   if (sb.value || gi.value) {
     handleSearch();
   }
-};
+}
