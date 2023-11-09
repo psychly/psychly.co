@@ -1,5 +1,4 @@
 // dynamic google map and markers that reacts to the search and filters on the browse page
-<script>
   window.addEventListener('load', function () {
     setTimeout(function() {
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -70,4 +69,3 @@
 
     }, 500);
   }, false);
-</script>
