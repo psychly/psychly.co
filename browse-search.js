@@ -109,4 +109,4 @@ cb.addEventListener("click", function() {
   if (sb.value || gi.value) {
     handleSearch();
   }
-}
+});
