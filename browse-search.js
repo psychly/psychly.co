@@ -24,8 +24,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 // Function to handle the search
 function handleSearch() {
-  let fi = oi;
-  const st = sb.value.toLowerCase();
+  let fi = oi; // Start with the full original list of items
+  const st = sb.value.toLowerCase(); // Search term from BrowseSearchGeneral
 
   // If a location is provided, use it to filter the results
   if (gi.value) {
@@ -34,10 +34,9 @@ function handleSearch() {
       if (status === 'OK') {
         const location = results[0].geometry.location;
         gr.value = `${location.lat()}, ${location.lng()}`;
-        // Filter by distance first, then by the general search term if provided
         fi = filterByDistance(fi, location.lat(), location.lng());
         if (st) {
-          fi = filterBySearchTerm(fi, st);
+          fi = filterBySearchTerm(fi, st); // Apply general search term
         }
         displayResults(fi);
       } else {
@@ -46,7 +45,10 @@ function handleSearch() {
     });
   } else if (st) {
     // If only a general search term is provided, filter by it
-    fi = filterBySearchTerm(fi, st);
+    fi = filterBySearchTerm(fi, st); // Apply general search term
+    displayResults(fi);
+  } else {
+    // If no search term or location is provided, display all items
     displayResults(fi);
   }
 }
