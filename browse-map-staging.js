@@ -1,10 +1,24 @@
 // dynamic google map and markers that reacts to the search and filters on the browse page
   window.addEventListener('load', function () {
     setTimeout(function() {
+    // Define your custom map style
+    var customMapStyle = [
+      {
+        "featureType": "water",
+        "stylers": [{"color": "#a2daf2"}]
+      },
+      {
+        "featureType": "landscape",
+        "stylers": [{"color": "#f2f2f2"}]
+      },
+      // Add more style rules as needed
+    ];
+
       var map = new google.maps.Map(document.getElementById('map'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         maxZoom: 14,
-        scrollwheel: true
+        scrollwheel: true,
+        styles: customMapStyle // Apply the custom style
       });
 
       // Function to update map markers
