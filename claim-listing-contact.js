@@ -3,7 +3,7 @@
     const itemId = urlParams.get('itemId');
 
     // Replace with your actual Cloudflare Worker URL
-    const workerEndpoint = `https://psychly-claim.tobcsmith.workers.dev/?itemID=${itemId}`;
+    const workerEndpoint = `https://psychly-claim.tobcsmith.workers.dev/?itemId=${itemId}`;
 
     fetch(workerEndpoint)
       .then(response => response.json())
