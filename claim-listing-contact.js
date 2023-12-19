@@ -1,6 +1,6 @@
   document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const itemId = urlParams.get('itemID');
+    const itemId = urlParams.get('itemId');
 
     // Replace with your actual Cloudflare Worker URL
     const workerEndpoint = `https://psychly-claim.tobcsmith.workers.dev/?itemID=${itemId}`;
