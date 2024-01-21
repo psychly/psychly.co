@@ -1,4 +1,4 @@
-  let autocomplete;
+let autocomplete;
 
   function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
