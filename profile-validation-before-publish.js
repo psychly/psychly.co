@@ -104,8 +104,14 @@ function checkValidation() {
 
 function unhidePublishContainer() {
   if (checkValidation()) {
-    var container = document.getElementById('publish-profile-container');
-    container.style.display = 'block'; // This will unhide the container
+    // If validation passed, trigger the 'save-profile-info-button' click
+    document.getElementById('save-profile-info-button').click();
+
+    // Then, display the modal after a short delay to ensure any asynchronous actions tied to saving have completed
+    setTimeout(function() {
+      var container = document.getElementById('publish-profile-container');
+      container.style.display = 'block'; // This will unhide the container
+    }, 500); // Adjust delay as necessary based on your application's needs
   }
 }
 
@@ -127,3 +133,4 @@ function setupPublishEventListeners() {
 }
 
 document.addEventListener('DOMContentLoaded', setupPublishEventListeners);
+</script>
