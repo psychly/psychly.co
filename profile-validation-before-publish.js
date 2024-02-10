@@ -133,4 +133,4 @@ function setupPublishEventListeners() {
 }
 
 document.addEventListener('DOMContentLoaded', setupPublishEventListeners);
-</script>
+
