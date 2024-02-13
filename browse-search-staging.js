@@ -27,11 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300); // Adjust the delay as needed
   }
 
-   function performSearch() {
+  function performSearch() {
     let fi = oi; // Original items list
     const st = sb.value.toLowerCase(); // Search term from the general search input
-
-    // Extract the 'languages' parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const selectedLanguages = urlParams.get('languages') ? urlParams.get('languages').split(',') : [];
 
@@ -43,11 +41,10 @@ document.addEventListener('DOMContentLoaded', function() {
           gr.value = `${location.lat()}, ${location.lng()}`;
           fi = filterByDistance(fi, location.lat(), location.lng());
           
-          // Apply existing filters
           if (st) {
             fi = filterBySearchTerm(fi, st);
           }
-          // Now also filter by selected languages
+
           if (selectedLanguages.length > 0) {
             fi = filterByLanguages(fi, selectedLanguages);
           }
@@ -58,11 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     } else {
-      // Apply existing filters
       if (st) {
         fi = filterBySearchTerm(fi, st);
       }
-      // Filter by selected languages
+
       if (selectedLanguages.length > 0) {
         fi = filterByLanguages(fi, selectedLanguages);
       }
@@ -71,44 +67,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // New function to filter items by selected languages
   function filterByLanguages(list, selectedLanguages) {
     return list.filter(item => {
-      const itemLanguages = item.querySelector('.language') ? item.querySelector('.language').textContent.toLowerCase() : '';
+      const itemLanguages = Array.from(item.querySelectorAll('.language')).map(element => element.textContent.toLowerCase());
       return selectedLanguages.some(lang => itemLanguages.includes(lang.toLowerCase()));
     });
   }
 
-  function filterByDistance(list, lat, lng) {
+  function filterBySearchTerm(list, searchTerm) {
     return list.filter(item => {
-      const itemLat = parseFloat(item.querySelector('.lat').textContent);
-      const itemLng = parseFloat(item.querySelector('.long').textContent);
-      return calculateDistance(lat, lng, itemLat, itemLng) <= 50;
+      const name = item.querySelector('#practice-name').textContent.toLowerCase();
+      const type = item.querySelector('#practice-type').textContent.toLowerCase();
+      const language = item.querySelector('.language') ? item.querySelector('.language').textContent.toLowerCase() : '';
+      const therapyType = item.querySelector('.type-of-therapy') ? item.querySelector('.type-of-therapy').textContent.toLowerCase() : '';
+      const conditions = item.querySelector('.conditions') ? item.querySelector('.conditions').textContent.toLowerCase() : '';
+      const about = item.querySelector('.about-your-practice') ? item.querySelector('.about-your-practice').textContent.toLowerCase() : '';
+
+      return name.includes(searchTerm) || type.includes(searchTerm) || language.includes(searchTerm) || therapyType.includes(searchTerm) || conditions.includes(searchTerm) || about.includes(searchTerm);
     });
   }
 
-  function filterBySearchTerm(list, searchTerm) {
-  return list.filter(item => {
-    const name = item.querySelector('#practice-name').textContent.toLowerCase();
-    const type = item.querySelector('#practice-type').textContent.toLowerCase();
-    // Search within additional classes
-    const language = item.querySelector('.language') ? item.querySelector('.language').textContent.toLowerCase() : '';
-    const therapyType = item.querySelector('.type-of-therapy') ? item.querySelector('.type-of-therapy').textContent.toLowerCase() : '';
-    const conditions = item.querySelector('.conditions') ? item.querySelector('.conditions').textContent.toLowerCase() : '';
-    const about = item.querySelector('.about-your-practice') ? item.querySelector('.about-your-practice').textContent.toLowerCase() : '';
-
-    return name.includes(searchTerm) || type.includes(searchTerm) || language.includes(searchTerm) || therapyType.includes(searchTerm) || conditions.includes(searchTerm) || about.includes(searchTerm);
-  });
-}
-
-
   function displayResults(filteredItems) {
     cl.innerHTML = '';
-    filteredItems.forEach(item => cl.appendChild(item));
+    filteredItems.forEach(item => cl.appendChild(item.cloneNode(true)));
     updateURL(sb.value, gi.value);
-    // Update the map with new markers
     if (window.updateMarkers) {
-      window.updateMarkers();
+      window.updateMarkers(filteredItems);
     }
   }
 
@@ -117,6 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchParams = new URLSearchParams(currentUrl.search);
     searchParams.set('searchGeneral', searchGeneral);
     searchParams.set('searchLocation', searchLocation);
+    const selectedLanguages = urlParams.get('languages');
+    if(selectedLanguages) {
+      searchParams.set('languages', selectedLanguages);
+    }
     history.pushState(null, '', `${currentUrl.pathname}?${searchParams}`);
   }
 
