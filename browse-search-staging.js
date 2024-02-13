@@ -96,13 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function updateURL(searchGeneral, searchLocation) {
+    function updateURL(searchGeneral, searchLocation) {
     const currentUrl = new URL(window.location);
     const searchParams = new URLSearchParams(currentUrl.search);
     searchParams.set('searchGeneral', searchGeneral);
     searchParams.set('searchLocation', searchLocation);
     const selectedLanguages = urlParams.get('languages');
-    if(selectedLanguages) {
+    if (selectedLanguages) {
       searchParams.set('languages', selectedLanguages);
     }
     history.pushState(null, '', `${currentUrl.pathname}?${searchParams}`);
@@ -116,10 +116,14 @@ document.addEventListener('DOMContentLoaded', function() {
     gi.value = "";
     gr.value = "";
     cl.innerHTML = '';
-    oi.forEach(item => cl.appendChild(item));
+    oi.forEach(item => cl.appendChild(item.cloneNode(true)));
     history.pushState(null, '', window.location.pathname);
+    if (window.updateMarkers) {
+      window.updateMarkers(oi);
+    }
   });
 
+  // Initialize the search if there are URL parameters present for searchGeneral or searchLocation
   const urlParams = new URLSearchParams(window.location.search);
   sb.value = urlParams.get('searchGeneral') || '';
   gi.value = urlParams.get('searchLocation') || '';
@@ -127,3 +131,4 @@ document.addEventListener('DOMContentLoaded', function() {
     performSearch();
   }
 });
+
