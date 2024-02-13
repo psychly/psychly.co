@@ -74,6 +74,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function filterByDistance(list, lat, lng) {
+    return list.filter(item => {
+      const itemLat = parseFloat(item.querySelector('.lat').textContent);
+      const itemLng = parseFloat(item.querySelector('.long').textContent);
+      return calculateDistance(lat, lng, itemLat, itemLng) <= 50;
+    });
+  }
+
   function filterBySearchTerm(list, searchTerm) {
     return list.filter(item => {
       const name = item.querySelector('#practice-name').textContent.toLowerCase();
