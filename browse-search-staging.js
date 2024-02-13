@@ -122,14 +122,25 @@ function applyFilters(list, selectedValues, className) {
     function updateURL(searchGeneral, searchLocation) {
     const currentUrl = new URL(window.location);
     const searchParams = new URLSearchParams(currentUrl.search);
+
+    // Set parameters for general search and location
     searchParams.set('searchGeneral', searchGeneral);
     searchParams.set('searchLocation', searchLocation);
-    const selectedLanguages = urlParams.get('language');
-    if (selectedLanguages) {
-      searchParams.set('language', selectedLanguages);
-    }
+
+    // Retrieve and set parameters for all filters
+    const urlParams = new URLSearchParams(window.location.search);
+    ['language', 'practiceType', 'bookingType', 'therapyType'].forEach(param => {
+        const selectedValues = urlParams.get(param);
+        if (selectedValues) {
+            searchParams.set(param, selectedValues);
+        } else {
+            searchParams.delete(param); // Ensure removal if not present
+        }
+    });
+
     history.pushState(null, '', `${currentUrl.pathname}?${searchParams}`);
-  }
+}
+
 
   searchButton.addEventListener('click', handleSearch);
   sb.addEventListener('keypress', function(e) { if (e.key === 'Enter') handleSearch(); });
