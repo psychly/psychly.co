@@ -64,12 +64,19 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function filterBySearchTerm(list, searchTerm) {
-    return list.filter(item => {
-      const name = item.querySelector('#practice-name').textContent.toLowerCase();
-      const type = item.querySelector('#practice-type').textContent.toLowerCase();
-      return name.includes(searchTerm) || type.includes(searchTerm);
-    });
-  }
+  return list.filter(item => {
+    const name = item.querySelector('#practice-name').textContent.toLowerCase();
+    const type = item.querySelector('#practice-type').textContent.toLowerCase();
+    // Search within additional classes
+    const language = item.querySelector('.language') ? item.querySelector('.language').textContent.toLowerCase() : '';
+    const therapyType = item.querySelector('.type-of-therapy') ? item.querySelector('.type-of-therapy').textContent.toLowerCase() : '';
+    const conditions = item.querySelector('.conditions') ? item.querySelector('.conditions').textContent.toLowerCase() : '';
+    const about = item.querySelector('.about-your-practice') ? item.querySelector('.about-your-practice').textContent.toLowerCase() : '';
+
+    return name.includes(searchTerm) || type.includes(searchTerm) || language.includes(searchTerm) || therapyType.includes(searchTerm) || conditions.includes(searchTerm) || about.includes(searchTerm);
+  });
+}
+
 
   function displayResults(filteredItems) {
     cl.innerHTML = '';
