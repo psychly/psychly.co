@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
   let fi = oi; // Original items list
   const st = sb.value.toLowerCase(); // Search term from the general search input
   const urlParams = new URLSearchParams(window.location.search);
-  const selectedLanguages = urlParams.get('languages') ? urlParams.get('languages').split(',') : [];
-  const selectedPracticeTypes = urlParams.get('practicetype') ? urlParams.get('practicetype').split(',') : [];
-  const selectedBookingTypes = urlParams.get('bookingtype') ? urlParams.get('bookingtype').split(',') : [];
-  const selectedTherapyTypes = urlParams.get('therapytype') ? urlParams.get('therapytype').split(',') : [];
+  const selectedLanguages = urlParams.get('language') ? urlParams.get('language').split(',') : [];
+  const selectedPracticeTypes = urlParams.get('practiceType') ? urlParams.get('practiceType').split(',') : [];
+  const selectedBookingTypes = urlParams.get('bookingType') ? urlParams.get('bookingType').split(',') : [];
+  const selectedTherapyTypes = urlParams.get('therapyType') ? urlParams.get('therapyType').split(',') : [];
 
   if (gi.value) {
     const geocoder = new google.maps.Geocoder();
@@ -124,9 +124,9 @@ function applyFilters(list, selectedValues, className) {
     const searchParams = new URLSearchParams(currentUrl.search);
     searchParams.set('searchGeneral', searchGeneral);
     searchParams.set('searchLocation', searchLocation);
-    const selectedLanguages = urlParams.get('languages');
+    const selectedLanguages = urlParams.get('language');
     if (selectedLanguages) {
-      searchParams.set('languages', selectedLanguages);
+      searchParams.set('language', selectedLanguages);
     }
     history.pushState(null, '', `${currentUrl.pathname}?${searchParams}`);
   }
