@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function performSearch() {
     let fi = oi; // Original items list
     const st = sb.value.toLowerCase(); // Search term from the general search input
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search); // Moved inside performSearch
     const selectedLanguages = urlParams.get('languages') ? urlParams.get('languages').split(',') : [];
 
     if (gi.value) {
