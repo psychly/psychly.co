@@ -27,32 +27,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300); // Adjust the delay as needed
   }
 
-  function performSearch() {
-    let fi = oi;
-    const st = sb.value.toLowerCase();
+   function performSearch() {
+    let fi = oi; // Original items list
+    const st = sb.value.toLowerCase(); // Search term from the general search input
+
+    // Extract the 'languages' parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedLanguages = urlParams.get('languages') ? urlParams.get('languages').split(',') : [];
 
     if (gi.value) {
       const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ 'address': gi.value }, function(results, status) {
+      geocoder.geocode({'address': gi.value}, function(results, status) {
         if (status === 'OK') {
           const location = results[0].geometry.location;
           gr.value = `${location.lat()}, ${location.lng()}`;
           fi = filterByDistance(fi, location.lat(), location.lng());
+          
+          // Apply existing filters
           if (st) {
             fi = filterBySearchTerm(fi, st);
           }
+          // Now also filter by selected languages
+          if (selectedLanguages.length > 0) {
+            fi = filterByLanguages(fi, selectedLanguages);
+          }
+
           displayResults(fi);
         } else {
           gr.value = "Geocoding failed: " + status;
-          // Show an error or handle appropriately
         }
       });
     } else {
+      // Apply existing filters
       if (st) {
         fi = filterBySearchTerm(fi, st);
       }
+      // Filter by selected languages
+      if (selectedLanguages.length > 0) {
+        fi = filterByLanguages(fi, selectedLanguages);
+      }
+
       displayResults(fi);
     }
+  }
+
+  // New function to filter items by selected languages
+  function filterByLanguages(list, selectedLanguages) {
+    return list.filter(item => {
+      const itemLanguages = item.querySelector('.language') ? item.querySelector('.language').textContent.toLowerCase() : '';
+      return selectedLanguages.some(lang => itemLanguages.includes(lang.toLowerCase()));
+    });
   }
 
   function filterByDistance(list, lat, lng) {
@@ -64,12 +88,19 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function filterBySearchTerm(list, searchTerm) {
-    return list.filter(item => {
-      const name = item.querySelector('#practice-name').textContent.toLowerCase();
-      const type = item.querySelector('#practice-type').textContent.toLowerCase();
-      return name.includes(searchTerm) || type.includes(searchTerm);
-    });
-  }
+  return list.filter(item => {
+    const name = item.querySelector('#practice-name').textContent.toLowerCase();
+    const type = item.querySelector('#practice-type').textContent.toLowerCase();
+    // Search within additional classes
+    const language = item.querySelector('.language') ? item.querySelector('.language').textContent.toLowerCase() : '';
+    const therapyType = item.querySelector('.type-of-therapy') ? item.querySelector('.type-of-therapy').textContent.toLowerCase() : '';
+    const conditions = item.querySelector('.conditions') ? item.querySelector('.conditions').textContent.toLowerCase() : '';
+    const about = item.querySelector('.about-your-practice') ? item.querySelector('.about-your-practice').textContent.toLowerCase() : '';
+
+    return name.includes(searchTerm) || type.includes(searchTerm) || language.includes(searchTerm) || therapyType.includes(searchTerm) || conditions.includes(searchTerm) || about.includes(searchTerm);
+  });
+}
+
 
   function displayResults(filteredItems) {
     cl.innerHTML = '';
