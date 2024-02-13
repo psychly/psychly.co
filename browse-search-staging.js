@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       performSearch();
-    }, 300); // Adjust the delay as needed
+    }, 10); // Adjust the delay as needed
   }
 
   function performSearch() {
