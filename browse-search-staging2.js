@@ -41,27 +41,49 @@ document.addEventListener('DOMContentLoaded', function() {
       therapyType: urlParams.get('therapyType')?.split(',') || []
     };
 
-    fi = fi.filter(item => {
-      const itemData = {
-        name: item.querySelector('.practice-name')?.textContent.toLowerCase() || '',
-        medicalTitle: item.querySelector('.medical-title')?.textContent.toLowerCase() || '',
-        typeOfTherapy: item.querySelector('.type-of-therapy')?.textContent.toLowerCase() || '',
-        language: item.querySelector('.language')?.textContent.toLowerCase() || '',
-        practiceType: item.querySelector('.practice-type')?.textContent.toLowerCase() || '',
-        bookingType: item.querySelector('.booking-type')?.textContent.toLowerCase() || '',
-        conditions: item.querySelector('.conditions')?.textContent.toLowerCase() || '',
-        aboutYourPractice: item.querySelector('.about-your-practice')?.textContent.toLowerCase() || '',
-      };
+    // If there's a search location, perform geocoding and filter by distance
+    if (searchParams.searchLocation) {
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': searchParams.searchLocation}, function(results, status) {
+            if (status === 'OK') {
+                const location = results[0].geometry.location;
+                fi = filterByDistance(fi, location.lat(), location.lng());
 
-      return (!searchParams.searchGeneral || Object.values(itemData).some(value => value.includes(searchParams.searchGeneral))) &&
-             (!searchParams.language.length || searchParams.language.some(lang => itemData.language.includes(lang.toLowerCase()))) &&
-             (!searchParams.practiceType.length || searchParams.practiceType.some(type => itemData.practiceType.includes(type.toLowerCase()))) &&
-             (!searchParams.bookingType.length || searchParams.bookingType.some(type => itemData.bookingType.includes(type.toLowerCase()))) &&
-             (!searchParams.therapyType.length || searchParams.therapyType.some(type => itemData.typeOfTherapy.includes(type.toLowerCase())));
+                // After filtering by distance, continue with other filters
+                fi = filterItems(fi, searchParams);
+                displayResults(fi);
+            } else {
+                // Handle geocoding failure
+                console.error("Geocoding failed: " + status);
+            }
+        });
+    } else {
+        // If no search location, directly apply other filters
+        fi = filterItems(fi, searchParams);
+        displayResults(fi);
+    }
+}
+
+function filterItems(fi, searchParams) {
+    return fi.filter(item => {
+        const itemData = {
+            name: item.querySelector('.practice-name')?.textContent.toLowerCase() || '',
+            medicalTitle: item.querySelector('.medical-title')?.textContent.toLowerCase() || '',
+            typeOfTherapy: item.querySelector('.type-of-therapy')?.textContent.toLowerCase() || '',
+            language: item.querySelector('.language')?.textContent.toLowerCase() || '',
+            practiceType: item.querySelector('.practice-type')?.textContent.toLowerCase() || '',
+            bookingType: item.querySelector('.booking-type')?.textContent.toLowerCase() || '',
+            conditions: item.querySelector('.conditions')?.textContent.toLowerCase() || '',
+            aboutYourPractice: item.querySelector('.about-your-practice')?.textContent.toLowerCase() || '',
+        };
+
+        return (!searchParams.searchGeneral || Object.values(itemData).some(value => value.includes(searchParams.searchGeneral))) &&
+               (!searchParams.language.length || searchParams.language.some(lang => itemData.language.includes(lang.toLowerCase()))) &&
+               (!searchParams.practiceType.length || searchParams.practiceType.some(type => itemData.practiceType.includes(type.toLowerCase()))) &&
+               (!searchParams.bookingType.length || searchParams.bookingType.some(type => itemData.bookingType.includes(type.toLowerCase()))) &&
+               (!searchParams.therapyType.length || searchParams.therapyType.some(type => itemData.typeOfTherapy.includes(type.toLowerCase())));
     });
-
-    displayResults(fi);
-  }
+}
 
   function displayResults(filteredItems) {
     cl.innerHTML = '';
