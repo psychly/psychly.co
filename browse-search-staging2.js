@@ -85,6 +85,14 @@ function filterItems(fi, searchParams) {
     });
 }
 
+  function filterByDistance(list, lat, lng) {
+    return list.filter(item => {
+      const itemLat = parseFloat(item.querySelector('.lat').textContent);
+      const itemLng = parseFloat(item.querySelector('.long').textContent);
+      return calculateDistance(lat, lng, itemLat, itemLng) <= 50;
+    });
+  }
+
   function displayResults(filteredItems) {
     cl.innerHTML = '';
     filteredItems.forEach(item => cl.appendChild(item.cloneNode(true)));
