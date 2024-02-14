@@ -21,13 +21,28 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function handleSearchEvent() {
-    const searchGeneral = sb.value;
-    const searchLocation = gi.value;
-    const currentUrl = new URL(window.location);
-    if (searchGeneral) currentUrl.searchParams.set('searchGeneral', searchGeneral);
-    if (searchLocation) currentUrl.searchParams.set('searchLocation', searchLocation);
-    window.location.href = currentUrl.toString();
+  const searchGeneral = sb.value;
+  const searchLocation = gi.value;
+  const currentUrl = new URL(window.location);
+
+  // Set or delete 'searchGeneral' parameter based on input value
+  if (searchGeneral) {
+    currentUrl.searchParams.set('searchGeneral', searchGeneral);
+  } else {
+    currentUrl.searchParams.delete('searchGeneral');
   }
+
+  // Set or delete 'searchLocation' parameter based on input value
+  if (searchLocation) {
+    currentUrl.searchParams.set('searchLocation', searchLocation);
+  } else {
+    currentUrl.searchParams.delete('searchLocation');
+  }
+
+  // Update the URL
+  window.location.href = currentUrl.toString();
+}
+
 
   function performSearch() {
     let fi = oi; // Original items list
