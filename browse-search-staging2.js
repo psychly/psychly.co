@@ -123,32 +123,35 @@ function filterItems(fi, searchParams) {
     cl.innerHTML = '';
     window.location.href = window.location.pathname; // Reset filters on clear
   });
+
   // Function to restore the checkbox states from the URL parameters
   function restoreCheckboxStates() {
   const urlParams = new URLSearchParams(window.location.search);
   const filterSettings = {
-    language: urlParams.get('language')?.split(',') || [],
-    practiceType: urlParams.get('practiceType')?.split(',') || [],
-    bookingType: urlParams.get('bookingType')?.split(',') || [],
-    therapyType: urlParams.get('therapyType')?.split(',') || []
+    bookingType: urlParams.get('bookingType')?.split(',').map(decodeURIComponent) || [],
+    practiceType: urlParams.get('practiceType')?.split(',').map(decodeURIComponent) || [],
+    therapyType: urlParams.get('therapyType')?.split(',').map(decodeURIComponent) || [],
+    language: urlParams.get('language')?.split(',').map(decodeURIComponent) || []
   };
 
   // Recheck the checkboxes based on URL parameters
   Object.keys(filterSettings).forEach(filterKey => {
     const values = filterSettings[filterKey];
     values.forEach(value => {
-      // Find checkboxes that have a sibling with class 'checkbox-<filterKey>-text' containing the text value
-      const selector = `.checkbox-${filterKey}[value="${value}"]`;
-      const checkbox = document.querySelector(selector);
-      if (checkbox) {
-        checkbox.checked = true;
-      }
+      // Find checkboxes that have the same value as the parameter.
+      const checkboxes = document.querySelectorAll(`.checkbox-${filterKey}`);
+      checkboxes.forEach(checkbox => {
+        if (checkbox.value === value) {
+          checkbox.checked = true;
+        }
+      });
     });
   });
 }
 
-  // Call this function to restore the checkbox states after page load
-  restoreCheckboxStates();
+// Call this function to restore the checkbox states after page load
+restoreCheckboxStates();
+
 
   // Trigger search on page load based on URL parameters
   performSearch();
