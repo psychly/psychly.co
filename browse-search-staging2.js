@@ -125,29 +125,27 @@ function filterItems(fi, searchParams) {
   });
   // Function to restore the checkbox states from the URL parameters
   function restoreCheckboxStates() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const filterSettings = {
-      language: urlParams.get('language'),
-      practiceType: urlParams.get('practiceType'),
-      bookingType: urlParams.get('bookingType'),
-      therapyType: urlParams.get('therapyType')
-    };
+  const urlParams = new URLSearchParams(window.location.search);
+  const filterSettings = {
+    language: urlParams.get('language')?.split(',') || [],
+    practiceType: urlParams.get('practiceType')?.split(',') || [],
+    bookingType: urlParams.get('bookingType')?.split(',') || [],
+    therapyType: urlParams.get('therapyType')?.split(',') || []
+  };
 
-    Object.keys(filterSettings).forEach(filterKey => {
-      const paramValue = filterSettings[filterKey];
-      if (paramValue) {
-        const values = paramValue.split(',');
-        values.forEach(value => {
-          document.querySelectorAll(`.checkbox-${filterKey}`).forEach(checkbox => {
-            const textElement = checkbox.parentElement.querySelector('.checkbox-text');
-            if (textElement && textElement.textContent.trim() === value) {
-              checkbox.checked = true;
-            }
-          });
-        });
+  // Recheck the checkboxes based on URL parameters
+  Object.keys(filterSettings).forEach(filterKey => {
+    const values = filterSettings[filterKey];
+    values.forEach(value => {
+      // Find checkboxes that have a sibling with class 'checkbox-<filterKey>-text' containing the text value
+      const selector = `.checkbox-${filterKey}[value="${value}"]`;
+      const checkbox = document.querySelector(selector);
+      if (checkbox) {
+        checkbox.checked = true;
       }
     });
-  }
+  });
+}
 
   // Call this function to restore the checkbox states after page load
   restoreCheckboxStates();
