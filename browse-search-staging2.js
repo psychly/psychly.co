@@ -123,6 +123,34 @@ function filterItems(fi, searchParams) {
     cl.innerHTML = '';
     window.location.href = window.location.pathname; // Reset filters on clear
   });
+  // Function to restore the checkbox states from the URL parameters
+  function restoreCheckboxStates() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterSettings = {
+      language: urlParams.get('language'),
+      practiceType: urlParams.get('practiceType'),
+      bookingType: urlParams.get('bookingType'),
+      therapyType: urlParams.get('therapyType')
+    };
+
+    Object.keys(filterSettings).forEach(filterKey => {
+      const paramValue = filterSettings[filterKey];
+      if (paramValue) {
+        const values = paramValue.split(',');
+        values.forEach(value => {
+          document.querySelectorAll(`.checkbox-${filterKey}`).forEach(checkbox => {
+            const textElement = checkbox.parentElement.querySelector('.checkbox-text');
+            if (textElement && textElement.textContent.trim() === value) {
+              checkbox.checked = true;
+            }
+          });
+        });
+      }
+    });
+  }
+
+  // Call this function to restore the checkbox states after page load
+  restoreCheckboxStates();
 
   // Trigger search on page load based on URL parameters
   performSearch();
