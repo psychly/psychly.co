@@ -177,7 +177,7 @@ function filterItems(fi, searchParams) {
 }
 
 // Call this function to restore the checkbox states after page load
-console.log("Document loaded. Restoring checkbox states...");                       
+//console.log("Document loaded. Restoring checkbox states...");                       
 restoreCheckboxStates();
 
 
