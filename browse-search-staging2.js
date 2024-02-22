@@ -127,21 +127,24 @@ function filterItems(fi, searchParams) {
   // Function to restore the checkbox states from the URL parameters
   function restoreCheckboxStates() {
   const urlParams = new URLSearchParams(window.location.search);
+  // Decode each URL parameter only once and then split, to handle commas correctly in values
   const filterSettings = {
-    bookingType: urlParams.get('bookingType')?.split(',').map(decodeURIComponent) || [],
-    practiceType: urlParams.get('practiceType')?.split(',').map(decodeURIComponent) || [],
-    therapyType: urlParams.get('therapyType')?.split(',').map(decodeURIComponent) || [],
-    language: urlParams.get('language')?.split(',').map(decodeURIComponent) || []
+    bookingType: urlParams.get('bookingType') ? decodeURIComponent(urlParams.get('bookingType')).split(',') : [],
+    practiceType: urlParams.get('practiceType') ? decodeURIComponent(urlParams.get('practiceType')).split(',') : [],
+    therapyType: urlParams.get('therapyType') ? decodeURIComponent(urlParams.get('therapyType')).split(',') : [],
+    language: urlParams.get('language') ? decodeURIComponent(urlParams.get('language')).split(',') : []
   };
 
-  // Recheck the checkboxes based on URL parameters
+  // Iterate over each filter setting to check the appropriate checkboxes
   Object.keys(filterSettings).forEach(filterKey => {
     const values = filterSettings[filterKey];
     values.forEach(value => {
-      // Find checkboxes that have the same value as the parameter.
+      // Use `.checkbox-${filterKey}[value="${value}"]` if checkboxes have a `value` attribute matching the text
+      // Otherwise, you need to compare against the text content of a sibling element (or child, depending on structure)
       const checkboxes = document.querySelectorAll(`.checkbox-${filterKey}`);
       checkboxes.forEach(checkbox => {
-        if (checkbox.value === value) {
+        const textElement = checkbox.parentElement.querySelector(`.${filterKey}-text`);
+        if (textElement && textElement.textContent.trim() === value) {
           checkbox.checked = true;
         }
       });
