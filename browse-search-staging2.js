@@ -168,9 +168,9 @@ function filterItems(fi, searchParams) {
         if (labelText === value) {
           checkbox.checked = true;
           console.log(`Checked '${paramKey}' checkbox for value: '${value}'`);
-        } else
+        } else {
           console.log(`Did not match '${paramKey}' checkbox for value: '${value}' with label text: '${labelText}'`);
-      }
+        }
       });
     });
   });
