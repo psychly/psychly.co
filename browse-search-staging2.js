@@ -127,24 +127,43 @@ function filterItems(fi, searchParams) {
   // Function to restore the checkbox states from the URL parameters
   function restoreCheckboxStates() {
   const urlParams = new URLSearchParams(window.location.search);
-  // Decode each URL parameter only once and then split, to handle commas correctly in values
-  const filterSettings = {
-    bookingType: urlParams.get('bookingType') ? decodeURIComponent(urlParams.get('bookingType')).split(',') : [],
-    practiceType: urlParams.get('practiceType') ? decodeURIComponent(urlParams.get('practiceType')).split(',') : [],
-    therapyType: urlParams.get('therapyType') ? decodeURIComponent(urlParams.get('therapyType')).split(',') : [],
-    language: urlParams.get('language') ? decodeURIComponent(urlParams.get('language')).split(',') : []
+
+  // Create an object to hold the mappings from URL param to checkbox class and text class
+  const paramMappings = {
+    'language': {
+      checkboxClass: 'checkbox-language',
+      textClass: 'checkbox-language-text'
+    },
+    'practiceType': {
+      checkboxClass: 'checkbox-practicetype',
+      textClass: 'checkbox-practicetype-text'
+    },
+    'bookingType': {
+      checkboxClass: 'checkbox-bookingtype',
+      textClass: 'checkbox-bookingtype-text'
+    },
+    'therapyType': {
+      checkboxClass: 'checkbox-therapytype',
+      textClass: 'checkbox-therapytype-text'
+    }
   };
 
-  // Iterate over each filter setting to check the appropriate checkboxes
-  Object.keys(filterSettings).forEach(filterKey => {
-    const values = filterSettings[filterKey];
-    values.forEach(value => {
-      // Use `.checkbox-${filterKey}[value="${value}"]` if checkboxes have a `value` attribute matching the text
-      // Otherwise, you need to compare against the text content of a sibling element (or child, depending on structure)
-      const checkboxes = document.querySelectorAll(`.checkbox-${filterKey}`);
+  // Iterate over the URL parameters and check the corresponding checkboxes
+  Object.keys(paramMappings).forEach(paramKey => {
+    const paramValue = urlParams.get(paramKey);
+    const paramValues = paramValue ? decodeURIComponent(paramValue).split(',') : [];
+
+    paramValues.forEach(value => {
+      // Use the checkbox and text classes from the mappings
+      const checkboxClass = paramMappings[paramKey].checkboxClass;
+      const textClass = paramMappings[paramKey].textClass;
+
+      // Find the checkbox next to the span with the matching text
+      const checkboxes = document.querySelectorAll(`.${checkboxClass}`);
       checkboxes.forEach(checkbox => {
-        const textElement = checkbox.parentElement.querySelector(`.${filterKey}-text`);
-        if (textElement && textElement.textContent.trim() === value) {
+        const labelText = checkbox.nextElementSibling.classList.contains(textClass) ? 
+                          checkbox.nextElementSibling.textContent.trim() : '';
+        if (labelText === value) {
           checkbox.checked = true;
         }
       });
