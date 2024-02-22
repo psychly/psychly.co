@@ -127,6 +127,7 @@ function filterItems(fi, searchParams) {
   // Function to restore the checkbox states from the URL parameters
   function restoreCheckboxStates() {
   const urlParams = new URLSearchParams(window.location.search);
+  console.log("URL Parameters:", Array.from(urlParams.entries()));
 
   // Create an object to hold the mappings from URL param to checkbox class and text class
   const paramMappings = {
@@ -152,6 +153,7 @@ function filterItems(fi, searchParams) {
   Object.keys(paramMappings).forEach(paramKey => {
     const paramValue = urlParams.get(paramKey);
     const paramValues = paramValue ? decodeURIComponent(paramValue).split(',') : [];
+    console.log(`Restoring state for '${paramKey}':`, paramValues);
 
     paramValues.forEach(value => {
       // Use the checkbox and text classes from the mappings
@@ -165,13 +167,17 @@ function filterItems(fi, searchParams) {
                           checkbox.nextElementSibling.textContent.trim() : '';
         if (labelText === value) {
           checkbox.checked = true;
-        }
+          console.log(`Checked '${paramKey}' checkbox for value: '${value}'`);
+        } else
+          console.log(`Did not match '${paramKey}' checkbox for value: '${value}' with label text: '${labelText}'`);
+      }
       });
     });
   });
 }
 
 // Call this function to restore the checkbox states after page load
+console.log("Document loaded. Restoring checkbox states...");                       
 restoreCheckboxStates();
 
 
