@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
       div65.style.display = 'block';
     }
 
-    if (!phone) {
+    if (!/\d/.test(phone)) {
       div35.style.display = 'none';
       div34.style.display = 'none';
     } else {
