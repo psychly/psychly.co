@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var divBlockCall = document.querySelector('.div-block-call');
 
   function validateFields(email, phone) {
-    if (!email.includes('@')) {
+    if (email.trim() === '') {
       divBlockEmail.style.display = 'none';
     } else {
       divBlockEmail.style.display = 'block';
     }
 
-    if (!/[1-9]/.test(phone)) {
+    if (phone.trim() === '') {
       divBlockText.style.display = 'none';
       divBlockCall.style.display = 'none';
     } else {
