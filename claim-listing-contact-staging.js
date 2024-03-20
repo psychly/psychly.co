@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var divBlockCall = document.querySelector('.div-block-call');
 
   function validateFields(email, phone) {
-    if (email.trim() === '') {
+    if (!email || (typeof email === 'string' && email.trim() === '')) {
       divBlockEmail.style.display = 'none';
     } else {
       divBlockEmail.style.display = 'block';
     }
 
-    if (phone.trim() === '') {
+    if (!phone || (typeof phone === 'string' && phone.trim() === '')) {
       divBlockText.style.display = 'none';
       divBlockCall.style.display = 'none';
     } else {
@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var phone = data.phone;
 
       // Populate all elements with the 'emailField' class
-      document.querySelectorAll('.emailField').forEach(el => el.textContent = email);
+      document.querySelectorAll('.emailField').forEach(el => el.textContent = email || '');
       // Populate all elements with the 'phoneField' class
-      document.querySelectorAll('.phoneField').forEach(el => el.textContent = phone);
+      document.querySelectorAll('.phoneField').forEach(el => el.textContent = phone || '');
 
       // Validate fields and hide/show divs
       validateFields(email, phone);
