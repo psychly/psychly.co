@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Replace with your actual Cloudflare Worker URL
   const workerEndpoint = `https://psychly-claim.tobcsmith.workers.dev/?itemId=${itemId}`;
 
-  var div65 = document.querySelector('.Div65');
-  var div35 = document.querySelector('.Div35');
-  var div34 = document.querySelector('.Div34');
+  var div65 = document.querySelector('.DivBLock65');
+  var div35 = document.querySelector('.DivBlock35');
+  var div34 = document.querySelector('.DivBlock34');
 
   function validateFields(email, phone) {
     if (!email.includes('@')) {
