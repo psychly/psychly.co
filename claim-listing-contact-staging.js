@@ -5,23 +5,23 @@ document.addEventListener('DOMContentLoaded', function() {
   // Replace with your actual Cloudflare Worker URL
   const workerEndpoint = `https://psychly-claim.tobcsmith.workers.dev/?itemId=${itemId}`;
 
-  var div65 = document.querySelector('.div-block-email');
-  var div35 = document.querySelector('.div-block-text');
-  var div34 = document.querySelector('.div-block-call');
+  var divBlockEmail = document.querySelector('.div-block-email');
+  var divBlockText = document.querySelector('.div-block-text');
+  var divBlockCall = document.querySelector('.div-block-call');
 
   function validateFields(email, phone) {
     if (!email.includes('@')) {
-      div65.style.display = 'none';
+      divBlockEmail.style.display = 'none';
     } else {
-      div65.style.display = 'block';
+      divBlockEmail.style.display = 'block';
     }
 
-    if (!/\d/.test(phone)) {
-      div35.style.display = 'none';
-      div34.style.display = 'none';
+    if (!/[1-9]/.test(phone)) {
+      divBlockText.style.display = 'none';
+      divBlockCall.style.display = 'none';
     } else {
-      div35.style.display = 'block';
-      div34.style.display = 'block';
+      divBlockText.style.display = 'block';
+      divBlockCall.style.display = 'block';
     }
   }
 
