@@ -3,11 +3,11 @@ function setupUploadWidget(buttonId, memberStackField) {
         cloudinary.openUploadWidget({
         cloudName: 'dfj3b96gg', 
         uploadPreset: 'psychly-profiles',
-        sources: ['local', 'url', 'camera', 'image_search'],
+        sources: ['local', 'camera'],
         googleApiKey: 'YourGoogleAPIKey', // Optional, for image search
-        showAdvancedOptions: true, // Optional
+        showAdvancedOptions: false, // Optional
         cropping: true, // Optional
-        multiple: true, // Optional
+        multiple: false, // Optional
         defaultSource: 'local', // Optional
         styles: {
             palette: {
