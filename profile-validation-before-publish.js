@@ -121,7 +121,13 @@ function hidePublishContainer() {
 }
 
 function setupPublishEventListeners() {
-  document.getElementById('publish-full-profile-button').addEventListener('click', unhidePublishContainer);
+  var publishButtonIds = ['publish-full-profile-button', 'publish-full-profile-button-desktop'];
+  publishButtonIds.forEach(function(buttonId) {
+    var button = document.getElementById(buttonId);
+    if (button) {
+      button.addEventListener('click', unhidePublishContainer);
+    }
+  });
 
   var closeButtonsIds = ['publish-profile-confirm-button', 'publish-profile-back-button', 'publish-profile-close-button'];
   closeButtonsIds.forEach(function(buttonId) {
@@ -131,6 +137,7 @@ function setupPublishEventListeners() {
     }
   });
 }
+
 
 document.addEventListener('DOMContentLoaded', setupPublishEventListeners);
 
