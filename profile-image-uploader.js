@@ -12,9 +12,9 @@ function setupUploadWidget(buttonId, memberStackField) {
       styles: {
         palette: {
           window: '#FFFFFF',
-          windowBorder: '#90A0B3',
+          windowBorder: '#443FDE',
           tabIcon: '#0078FF',
-          menuIcons: '#5A616A',
+          menuIcons: '#443FDE',
           textDark: '#000000',
           textLight: '#FFFFFF',
           link: '#0078FF',
