@@ -1,47 +1,50 @@
 function setupUploadWidget(buttonId, memberStackField) {
-    document.getElementById(buttonId).addEventListener("click", function(event) {
-        cloudinary.openUploadWidget({
-        cloudName: 'dfj3b96gg', 
-        uploadPreset: 'psychly-profiles',
-        sources: ['local', 'camera'],
-        googleApiKey: 'YourGoogleAPIKey', // Optional, for image search
-        showAdvancedOptions: false, // Optional
-        cropping: true, // Optional
-        multiple: false, // Optional
-        defaultSource: 'local', // Optional
-        styles: {
-            palette: {
-                window: '#FFFFFF',
-                windowBorder: '#90A0B3',
-                tabIcon: '#0078FF',
-                menuIcons: '#5A616A',
-                textDark: '#000000',
-                textLight: '#FFFFFF',
-                link: '#0078FF',
-                action: '#FF620C',
-                inactiveTabIcon: '#0E2F5A',
-                error: '#F44235',
-                inProgress: '#0078FF',
-                complete: '#20B832',
-                sourceBg: '#E4EBF1'
-            },
-            fonts: {
-                default: null,
-                "'Space Mono', monospace": {
-                    url: 'https://fonts.googleapis.com/css?family=Space+Mono',
-                    active: true
-                }
-            }
-        } 
-    }, 
-        (error, result) => { 
-            if (!error && result && result.event === "success") { 
-                console.log('Uploaded Image URL:', result.info.secure_url);
-                document.querySelector('[data-ms-member="' + memberStackField + '"]').value = result.info.secure_url;
-            } 
-        });
+  document.getElementById(buttonId).addEventListener("click", function(event) {
+    cloudinary.openUploadWidget({
+      cloudName: 'dfj3b96gg',
+      uploadPreset: 'psychly-profiles',
+      sources: ['local', 'camera'],
+      googleApiKey: 'YourGoogleAPIKey', // Optional, for image search
+      showAdvancedOptions: false, // Optional
+      cropping: true, // Optional
+      multiple: false, // Optional
+      defaultSource: 'local', // Optional
+      styles: {
+        palette: {
+          window: '#FFFFFF',
+          windowBorder: '#90A0B3',
+          tabIcon: '#0078FF',
+          menuIcons: '#5A616A',
+          textDark: '#000000',
+          textLight: '#FFFFFF',
+          link: '#0078FF',
+          action: '#FF620C',
+          inactiveTabIcon: '#0E2F5A',
+          error: '#F44235',
+          inProgress: '#0078FF',
+          complete: '#20B832',
+          sourceBg: '#E4EBF1'
+        },
+        fonts: {
+          default: {
+            active: true,
+            url: 'https://fonts.googleapis.com/css?family=Inter'
+          }
+        },
+        frame: {
+          margin: '5%'
+        }
+      }
+    },
+    (error, result) => {
+      if (!error && result && result.event === "success") {
+        console.log('Uploaded Image URL:', result.info.secure_url);
+        document.querySelector('[data-ms-member="' + memberStackField + '"]').value = result.info.secure_url;
+      }
     });
+  });
 }
+
 // Set up each upload widget
 setupUploadWidget("upload_main_image", "main-headshot-image");
 setupUploadWidget("upload_setting_image", "main-setting-image");
