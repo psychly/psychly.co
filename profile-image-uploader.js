@@ -8,6 +8,7 @@ function setupUploadWidget(buttonId, memberStackField) {
       showAdvancedOptions: false, // Optional
       cropping: true, // Optional
       multiple: false, // Optional
+      maxFileSize: 5000000
       defaultSource: 'local', // Optional
       styles: {
         palette: {
