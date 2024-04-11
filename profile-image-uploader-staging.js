@@ -55,7 +55,7 @@ function updateImage(imageId, imageURL) {
   dynamicImageDiv.style.backgroundPosition = "center";
   dynamicImageDiv.style.backgroundRepeat = "no-repeat";
   dynamicImageDiv.style.height = "160px";
-  dynamicImageDiv.style.width = "auto";
+  dynamicImageDiv.style.width = "100%";
   dynamicImageDiv.style.maxWidth = "100%";
 }
 
