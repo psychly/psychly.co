@@ -59,6 +59,13 @@ function updateImage(imageId, imageURL) {
   dynamicImageDiv.style.maxWidth = "100%";
 }
 
+function loadMainImage() {
+  var mainImageURL = document.querySelector('[data-ms-member="main-headshot-image"]').value;
+  if (mainImageURL) {
+    updateImage("image-main-id", mainImageURL);
+  }
+}
+
 // Set up each upload widget
 setupUploadWidget("upload_main_image", "main-headshot-image", "image-main-id");
 setupUploadWidget("upload_setting_image", "main-setting-image", "image-setting-id");
@@ -67,3 +74,6 @@ setupUploadWidget("upload_other_image_2", "other-image-2", "image-other-2-id");
 setupUploadWidget("upload_other_image_3", "other-image-3", "image-other-3-id");
 setupUploadWidget("upload_other_image_4", "other-image-4", "image-other-4-id");
 setupUploadWidget("upload_other_image_5", "other-image-5", "image-other-5-id");
+
+// Load main image on page load
+document.addEventListener("DOMContentLoaded", loadMainImage);
