@@ -41,7 +41,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
       if (!error && result && result.event === "success") {
         console.log('Uploaded Image URL:', result.info.secure_url);
         var imageURL = result.info.secure_url;
-        document.querySelector('[data-ms-member="' + memberStackField + '"]').value = imageURL;
+        document.getElementById("images-input-main").value = imageURL;
         updateImage(imageId, imageURL);
       }
     });
@@ -60,10 +60,12 @@ function updateImage(imageId, imageURL) {
 }
 
 function loadMainImage() {
-  var mainImageURL = document.querySelector('[data-ms-member="main-headshot-image"]').value;
-  if (mainImageURL) {
-    updateImage("image-main-id", mainImageURL);
-  }
+  setTimeout(function() {
+    var mainImageURL = document.getElementById("images-input-main").value;
+    if (mainImageURL) {
+      updateImage("image-main-id", mainImageURL);
+    }
+  }, 500);
 }
 
 // Set up each upload widget
@@ -75,5 +77,5 @@ setupUploadWidget("upload_other_image_3", "other-image-3", "image-other-3-id");
 setupUploadWidget("upload_other_image_4", "other-image-4", "image-other-4-id");
 setupUploadWidget("upload_other_image_5", "other-image-5", "image-other-5-id");
 
-// Load main image on page load
+// Load main image after a delay of 0.5 seconds
 document.addEventListener("DOMContentLoaded", loadMainImage);
