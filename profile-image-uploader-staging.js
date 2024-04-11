@@ -40,8 +40,9 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
     (error, result) => {
       if (!error && result && result.event === "success") {
         console.log('Uploaded Image URL:', result.info.secure_url);
-        document.querySelector('[data-ms-member="' + memberStackField + '"]').value = result.info.secure_url;
-        updateImage(imageId, result.info.secure_url);
+        var imageURL = result.info.secure_url;
+        document.querySelector('[data-ms-member="' + memberStackField + '"]').value = imageURL;
+        updateImage(imageId, imageURL);
       }
     });
   });
@@ -54,7 +55,7 @@ function updateImage(imageId, imageURL) {
   dynamicImageDiv.style.backgroundPosition = "center";
   dynamicImageDiv.style.backgroundRepeat = "no-repeat";
   dynamicImageDiv.style.height = "160px";
-  dynamicImageDiv.style.width = "100%";
+  dynamicImageDiv.style.width = "auto";
   dynamicImageDiv.style.maxWidth = "100%";
 }
 
