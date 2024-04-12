@@ -41,7 +41,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
       if (!error && result && result.event === "success") {
         console.log('Uploaded Image URL:', result.info.secure_url);
         var imageURL = result.info.secure_url;
-        document.getElementById("images-input-main").value = imageURL;
+        document.getElementById(memberStackField).value = imageURL;
         updateImage(imageId, imageURL);
       }
     });
@@ -59,23 +59,45 @@ function updateImage(imageId, imageURL) {
   dynamicImageDiv.style.maxWidth = "100%";
 }
 
-function loadMainImage() {
+function loadImages() {
   setTimeout(function() {
-    var mainImageURL = document.getElementById("images-input-main").value;
-    if (mainImageURL) {
-      updateImage("image-main-id", mainImageURL);
+    var inputFields = [
+      "images-input-main",
+      "images-input-setting",
+      "images-input-1",
+      "images-input-2",
+      "images-input-3",
+      "images-input-4",
+      "images-input-5"
+    ];
+    
+    var imageIds = [
+      "image-main-id",
+      "image-setting-id",
+      "image-other-1-id",
+      "image-other-2-id",
+      "image-other-3-id",
+      "image-other-4-id",
+      "image-other-5-id"
+    ];
+    
+    for (var i = 0; i < inputFields.length; i++) {
+      var imageURL = document.getElementById(inputFields[i]).value;
+      if (imageURL) {
+        updateImage(imageIds[i], imageURL);
+      }
     }
   }, 500);
 }
 
 // Set up each upload widget
-setupUploadWidget("upload_main_image", "main-headshot-image", "image-main-id");
-setupUploadWidget("upload_setting_image", "main-setting-image", "image-setting-id");
-setupUploadWidget("upload_other_image_1", "other-image-1", "image-other-1-id");
-setupUploadWidget("upload_other_image_2", "other-image-2", "image-other-2-id");
-setupUploadWidget("upload_other_image_3", "other-image-3", "image-other-3-id");
-setupUploadWidget("upload_other_image_4", "other-image-4", "image-other-4-id");
-setupUploadWidget("upload_other_image_5", "other-image-5", "image-other-5-id");
+setupUploadWidget("upload_main_image", "images-input-main", "image-main-id");
+setupUploadWidget("upload_setting_image", "images-input-setting", "image-setting-id");
+setupUploadWidget("upload_other_image_1", "images-input-1", "image-other-1-id");
+setupUploadWidget("upload_other_image_2", "images-input-2", "image-other-2-id");
+setupUploadWidget("upload_other_image_3", "images-input-3", "image-other-3-id");
+setupUploadWidget("upload_other_image_4", "images-input-4", "image-other-4-id");
+setupUploadWidget("upload_other_image_5", "images-input-5", "image-other-5-id");
 
-// Load main image after a delay of 0.5 seconds
-document.addEventListener("DOMContentLoaded", loadMainImage);
+// Load images after a delay of 0.5 seconds
+document.addEventListener("DOMContentLoaded", loadImages);
