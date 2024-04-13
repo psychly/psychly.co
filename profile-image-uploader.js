@@ -18,7 +18,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
       styles: {
         palette: {
           window: '#FFFFFF',
-          windowBorder: '#DDDDDD',
+          windowBorder: '#CCCCCC',
           tabIcon: '#443FDE',
           menuIcons: '#443FDE',
           textDark: '#000000',
