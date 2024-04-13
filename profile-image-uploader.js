@@ -25,11 +25,11 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
           textLight: '#FFFFFF',
           link: '#443FDE',
           action: '#443FDE',
-          inactiveTabIcon: '#443FDE',
-          error: '#443FDE',
-          inProgress: '#443FDE',
-          complete: '#443FDE',
-          sourceBg: '#443FDE'
+          inactiveTabIcon: '#FFFFFF',
+          error: '#FFFFFF',
+          inProgress: '#FFFFFF',
+          complete: '#FFFFFF',
+          sourceBg: '#FFFFFF'
         },
         fonts: {
           default: {
