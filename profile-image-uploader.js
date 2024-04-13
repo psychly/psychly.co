@@ -9,7 +9,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
       cropping: true, // Optional
       croppingAspectRatio: 1,
       croppingValidateDimensions: true,
-      showSkipCropButton: false,
+      showSkipCropButton: true,
       minImageHeight: 160,
       multiple: false, // Optional
       maxImageFileSize: 10000000,
@@ -44,7 +44,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
     (error, result) => {
       if (!error && result && result.event === "success") {
         console.log('Uploaded Image URL:', result.info.secure_url);
-        var imageURL = result.info.secure_url;
+        var imageURL = result.info.secure_url; // This will be cropped or original based on user action
         document.getElementById(memberStackField).value = imageURL;
         updateImage(imageId, imageURL);
       }
