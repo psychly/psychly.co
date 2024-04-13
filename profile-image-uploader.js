@@ -52,7 +52,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
           // Check if cropping data is available and construct the cropped URL
           if (result.info.coordinates && result.info.coordinates.custom && result.info.coordinates.custom.length > 0) {
             var coords = result.info.coordinates.custom[0];
-            var croppedURL = `${result.info.secure_url}?c_crop,g_custom,x_${coords[0]},y_${coords[1]},w_${coords[2]},h_${coords[3]}`;
+            var croppedURL = `${result.info.secure_url.replace('/upload/', `/upload/c_crop,g_custom,x_${coords[0]},y_${coords[1]},w_${coords[2]},h_${coords[3]}/`)}`;
             document.getElementById(memberStackField).value = croppedURL;
             updateImage(imageId, croppedURL);
           } else {
