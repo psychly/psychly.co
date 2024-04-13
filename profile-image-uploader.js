@@ -61,6 +61,9 @@ function updateImage(imageId, imageURL) {
   dynamicImageDiv.style.height = "160px";
   dynamicImageDiv.style.width = "100%";
   dynamicImageDiv.style.maxWidth = "100%";
+
+  // Trigger the click event on the save button
+  document.getElementById("save-profile-info-button").click();
 }
 
 function loadImages() {
