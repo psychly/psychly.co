@@ -19,17 +19,17 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
         palette: {
           window: '#FFFFFF',
           windowBorder: '#443FDE',
-          tabIcon: '#0078FF',
+          tabIcon: '#443FDE',
           menuIcons: '#443FDE',
           textDark: '#000000',
           textLight: '#FFFFFF',
-          link: '#0078FF',
-          action: '#FF620C',
-          inactiveTabIcon: '#0E2F5A',
-          error: '#F44235',
-          inProgress: '#0078FF',
-          complete: '#20B832',
-          sourceBg: '#E4EBF1'
+          link: '#443FDE',
+          action: '#443FDE',
+          inactiveTabIcon: '#443FDE',
+          error: '#443FDE',
+          inProgress: '#443FDE',
+          complete: '#443FDE',
+          sourceBg: '#443FDE'
         },
         fonts: {
           default: {
