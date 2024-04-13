@@ -43,23 +43,17 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
         }
       }
     },
-    (error, result) => {
-      if (!error && result && result.event === "success") {
-        var imageURL = result.info.secure_url;
-        if (result.info.custom_coordinates) {
-          // User cropped the image, generate the cropped version URL
-          var coordinates = result.info.custom_coordinates;
-          var croppedURL = cloudinary.url(result.info.public_id, {
-            crop: 'crop',
-            x: coordinates.left,
-            y: coordinates.top,
-            width: coordinates.width,
-            height: coordinates.height
-          });
-          imageURL = croppedURL;
-        }
-        document.getElementById(memberStackField).value = imageURL;
-        updateImage(imageId, imageURL);
+    function(error, result) {
+  if (error) {
+    console.log("Upload Widget error:", error);
+  } else {
+    console.log("Upload Widget result:", result);
+    if (result.event === "success") {
+      console.log("Uploaded image's URL:", result.info.secure_url);
+      console.log("Additional Info:", result.info);
+      // Check if cropping data is available
+      if (result.info.coordinates) {
+        console.log("Cropping coordinates:", result.info.coordinates);
       }
     });
   });
