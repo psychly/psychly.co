@@ -25,7 +25,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
           textLight: '#FFFFFF',
           link: '#443FDE',
           action: '#443FDE',
-          inactiveTabIcon: '#FFFFFF',
+          inactiveTabIcon: '#8D89ED',
           error: '#FFFFFF',
           inProgress: '#FFFFFF',
           complete: '#FFFFFF',
