@@ -1,4 +1,7 @@
 function setupUploadWidget(buttonId, memberStackField, imageId) {
+  // Store the initial value of the input field
+  var initialValue = document.getElementById(memberStackField).value;
+  
   document.getElementById(buttonId).addEventListener("click", function(event) {
     cloudinary.openUploadWidget({
       cloudName: 'dfj3b96gg',
@@ -59,6 +62,11 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
             document.getElementById(memberStackField).value = result.info.secure_url;
             updateImage(imageId, result.info.secure_url);
           }
+          // Check if the input field value has changed
+          if (document.getElementById(memberStackField).value !== initialValue) {
+            // Trigger the click event on the save button only if the value has changed
+            document.getElementById("save-profile-info-button").click();
+          }
         }
       }
     });
@@ -74,9 +82,6 @@ function updateImage(imageId, imageURL) {
   dynamicImageDiv.style.height = "160px";
   dynamicImageDiv.style.width = "100%";
   dynamicImageDiv.style.maxWidth = "100%";
-
-  // Trigger the click event on the save button
-  document.getElementById("save-profile-info-button").click();
 }
 
 function loadImages() {
