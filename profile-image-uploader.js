@@ -45,9 +45,17 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
     (error, result) => {
       if (!error && result && result.event === "success") {
         var imageURL = result.info.secure_url;
-        if (result.info.crop_info) {
-          // User cropped the image, use the cropped version URL
-          imageURL = result.info.eager[0].secure_url;
+        if (result.info.custom_coordinates) {
+          // User cropped the image, generate the cropped version URL
+          var coordinates = result.info.custom_coordinates;
+          var croppedURL = cloudinary.url(result.info.public_id, {
+            crop: 'crop',
+            x: coordinates.left,
+            y: coordinates.top,
+            width: coordinates.width,
+            height: coordinates.height
+          });
+          imageURL = croppedURL;
         }
         document.getElementById(memberStackField).value = imageURL;
         updateImage(imageId, imageURL);
