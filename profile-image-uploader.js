@@ -7,6 +7,10 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
       googleApiKey: 'YourGoogleAPIKey', // Optional, for image search
       showAdvancedOptions: false, // Optional
       cropping: true, // Optional
+      croppingAspectRatio: 1,
+      croppingValidateDimensions: true,
+      showSkipCropButton: false,
+      minImageHeight: 160,
       multiple: false, // Optional
       maxImageFileSize: 10000000,
       defaultSource: 'local', // Optional
