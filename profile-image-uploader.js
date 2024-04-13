@@ -5,15 +5,14 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
       uploadPreset: 'psychly-profiles',
       sources: ['local', 'camera'],
       googleApiKey: 'YourGoogleAPIKey', // Optional, for image search
-      showAdvancedOptions: false, // Optional
-      cropping: true, // Optional
+      showAdvancedOptions: false,
+      cropping: true,
       croppingAspectRatio: 1,
       croppingValidateDimensions: true,
-      croppingCoordinatesMode: 'custom',
       croppingShowDimensions: true,
       showSkipCropButton: true,
       minImageHeight: 160,
-      multiple: false, // Optional
+      multiple: false,
       maxImageFileSize: 10000000,
       defaultSource: 'local', // Optional
       styles: {
@@ -42,18 +41,26 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
           margin: '5%'
         }
       }
-    },
-    function(error, result) {
-  if (error) {
-    console.log("Upload Widget error:", error);
-  } else {
-    console.log("Upload Widget result:", result);
-    if (result.event === "success") {
-      console.log("Uploaded image's URL:", result.info.secure_url);
-      console.log("Additional Info:", result.info);
-      // Check if cropping data is available
-      if (result.info.coordinates) {
-        console.log("Cropping coordinates:", result.info.coordinates);
+    }, function(error, result) {
+      if (error) {
+        console.log("Upload Widget error:", error);
+      } else {
+        console.log("Upload Widget result:", result);
+        if (result.event === "success") {
+          console.log("Uploaded image's URL:", result.info.secure_url);
+          console.log("Additional Info:", result.info);
+          // Check if cropping data is available
+          if (result.info.coordinates) {
+            console.log("Cropping coordinates:", result.info.coordinates);
+            var coords = result.info.coordinates.custom;
+            var croppedURL = result.info.secure_url + '?c_crop,x_' + coords[0].x + ',y_' + coords[0].y + ',w_' + coords[0].width + ',h_' + coords[0].height;
+            document.getElementById(memberStackField).value = croppedURL;
+            updateImage(imageId, croppedURL);
+          } else {
+            document.getElementById(memberStackField).value = result.info.secure_url;
+            updateImage(imageId, result.info.secure_url);
+          }
+        }
       }
     });
   });
