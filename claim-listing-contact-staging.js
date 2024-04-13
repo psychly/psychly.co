@@ -31,8 +31,14 @@ document.addEventListener('DOMContentLoaded', function() {
       var email = data.email;
       var phone = data.phone;
 
+      // Format the phone number to E.164 format
+      if (phone && typeof phone === 'string') {
+        phone = '+' + phone.replace(/\D/g, '');
+      }
+
       // Populate all elements with the 'emailField' class
       document.querySelectorAll('.emailField').forEach(el => el.textContent = email || '');
+
       // Populate all elements with the 'phoneField' class
       document.querySelectorAll('.phoneField').forEach(el => el.textContent = phone || '');
 
