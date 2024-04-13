@@ -49,11 +49,10 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
         if (result.event === "success") {
           console.log("Uploaded image's URL:", result.info.secure_url);
           console.log("Additional Info:", result.info);
-          // Check if cropping data is available
-          if (result.info.coordinates) {
-            console.log("Cropping coordinates:", result.info.coordinates);
-            var coords = result.info.coordinates.custom;
-            var croppedURL = result.info.secure_url + '?c_crop,x_' + coords[0].x + ',y_' + coords[0].y + ',w_' + coords[0].width + ',h_' + coords[0].height;
+          // Check if cropping data is available and construct the cropped URL
+          if (result.info.coordinates && result.info.coordinates.custom && result.info.coordinates.custom.length > 0) {
+            var coords = result.info.coordinates.custom[0];
+            var croppedURL = `${result.info.secure_url}?c_crop,g_custom,x_${coords[0]},y_${coords[1]},w_${coords[2]},h_${coords[3]}`;
             document.getElementById(memberStackField).value = croppedURL;
             updateImage(imageId, croppedURL);
           } else {
