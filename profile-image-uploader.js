@@ -9,6 +9,7 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
       cropping: true, // Optional
       croppingAspectRatio: 1,
       croppingValidateDimensions: true,
+      croppingCoordinatesMode: 'custom',
       showSkipCropButton: true,
       minImageHeight: 160,
       multiple: false, // Optional
