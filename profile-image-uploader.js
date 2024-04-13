@@ -43,8 +43,11 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
     },
     (error, result) => {
       if (!error && result && result.event === "success") {
-        console.log('Uploaded Image URL:', result.info.secure_url);
-        var imageURL = result.info.secure_url; // This will be cropped or original based on user action
+        var imageURL = result.info.secure_url;
+        if (result.info.crop_info) {
+          // User cropped the image, use the cropped version URL
+          imageURL = result.info.eager[0].secure_url;
+        }
         document.getElementById(memberStackField).value = imageURL;
         updateImage(imageId, imageURL);
       }
