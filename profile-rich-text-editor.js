@@ -2,14 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var quill = new Quill('#editor', {
     modules: {
       toolbar: [
-        [{ 'header': [2, 3, 4, 5, 6, false] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        ['blockquote', 'code-block', 'link'],
+        ['bold', 'italic', 'underline'],
+        ['blockquote'],
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
         ['clean']
       ]
     },
-    placeholder: 'Type something here...',
+    placeholder: 'Describe your practice...',
     theme: 'snow'
   });
   var notesField = document.querySelector('[data-ms-member="about-your-practice"]');
