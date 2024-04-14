@@ -6,13 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.$memberstackDom.getCurrentMember().then(({ data: member }) => {
     if (member) {
+      const webflowCmsId = member.customFields['webflow-cms-id'];
+
       // Email Verification Form Submission
       document.getElementById('email-verify-form').addEventListener('submit', function(event) {
         event.preventDefault();
         var memberId = member.id;
         var code = document.getElementById('email-verify-input').value;
         console.log('Sending email verification request with Item ID:', itemId);
-        sendVerificationRequest('/verify-email-code', { code: code, memberId: memberId, itemId: itemId });
+        sendVerificationRequest('/verify-email-code', { code: code, memberId: memberId, itemId: itemId, webflowCmsId: webflowCmsId });
       });
 
       // SMS Verification Form Submission
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var phoneNumber = document.querySelector('.phoneField').textContent;
         var code = document.getElementById('sms-verify-input').value;
         console.log('Sending SMS verification request with Item ID:', itemId);
-        sendVerificationRequest('/verify-sms-code', { code: code, memberId: memberId, phoneNumber: phoneNumber, itemId: itemId });
+        sendVerificationRequest('/verify-sms-code', { code: code, memberId: memberId, phoneNumber: phoneNumber, itemId: itemId, webflowCmsId: webflowCmsId });
       });
 
       // Call Verification Form Submission
@@ -32,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var phoneNumber = document.querySelector('.phoneField').textContent;
         var code = document.getElementById('call-verify-input').value;
         console.log('Sending call verification request with Item ID:', itemId);
-        sendVerificationRequest('/verify-call-code', { code: code, memberId: memberId, phoneNumber: phoneNumber, itemId: itemId });
+        sendVerificationRequest('/verify-call-code', { code: code, memberId: memberId, phoneNumber: phoneNumber, itemId: itemId, webflowCmsId: webflowCmsId });
       });
     }
   });
