@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Extract itemId from URL
   const urlParams = new URLSearchParams(window.location.search);
   const itemId = urlParams.get('itemId');
-  console.log('Item ID:', itemId);
 
   window.$memberstackDom.getCurrentMember().then(({ data: member }) => {
     if (member) {
