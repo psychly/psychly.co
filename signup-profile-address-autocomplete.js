@@ -5,7 +5,7 @@ let autocomplete;
       document.getElementById('signup-address-auto'), {types: ['address']}
     );
     autocomplete.addListener('place_changed', fillInAddress);
-    google.maps.event.addDomListener(window, 'load', concatenateAddress); // Update on page load
+    window.addEventListener('load', concatenateAddress); // Update on page load
   }
 
   function fillInAddress() {
