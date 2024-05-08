@@ -1,10 +1,9 @@
 // service-worker.js
 const CACHE_NAME = 'site-cache-v1';
 const URLsToCache = [
-  '/',
-  '/browse-therapists',  // Ensure you adjust this URL to the actual path
-  '/css/styles.css',  // Adjust based on your actual stylesheets
-  '/js/script.js'  // Adjust based on your actual scripts
+  'https://psychly-hireup-template.webflow.io/browse-therapists',
+  'https://cdn.jetboost.io/jetboost.js',
+  'https://cdn.jetboost.io/v1.30.6/jetboost-main.js'
 ];
 
 self.addEventListener('install', (event) => {
