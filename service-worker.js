@@ -2,7 +2,7 @@
 const CACHE_NAME = 'site-cache-v1';
 const URLsToCache = [
   '/',
-  '/browse',  // Ensure you adjust this URL to the actual path
+  '/browse-therapists',  // Ensure you adjust this URL to the actual path
   '/css/styles.css',  // Adjust based on your actual stylesheets
   '/js/script.js'  // Adjust based on your actual scripts
 ];
