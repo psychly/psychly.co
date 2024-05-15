@@ -55,8 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if (data.verified) {
         console.log('Verification successful:', data.message);
         // Show the success screen
-        const successScreen = document.querySelector('.claim-success-screen');
-        successScreen.style.display = 'flex';
+        // Dispatch a custom event to trigger the success screen
+        const event = new CustomEvent('claimSuccess');
+        document.dispatchEvent(event);
         // Redirect to the profile page after a 4-second delay
         setTimeout(function() {
           window.location.href = '/user-profile-management'; // Replace with the actual profile page URL
