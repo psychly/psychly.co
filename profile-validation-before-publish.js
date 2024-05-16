@@ -51,7 +51,7 @@ function checkValidation() {
 
   // Check if at least 40 words in ql-editor
   var editorText = document.querySelector('.ql-editor').innerText.trim();
-  if (editorText.split(/\s+/).length < 40) {
+  if (editorText.split(/\s+/).length < 10) {
     alert("Please elaborate on your practice description");
     scrollToElement('ql-editor-container'); // Assuming the container has an ID for positioning
     return false;
