@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Dispatch a custom event to trigger the success screen
         const event = new CustomEvent('claimSuccess');
         document.dispatchEvent(event);
-        // Redirect to the profile page after a 4-second delay
+        // Redirect to the profile page after a 3-second delay
         setTimeout(function() {
           window.location.href = '/user-profile-management'; // Replace with the actual profile page URL
-        }, 4000);
+        }, 3000);
       } else {
         console.log('Verification failed:', data.message);
         // Check if the response message indicates incorrect code
