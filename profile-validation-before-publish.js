@@ -7,6 +7,20 @@ function scrollToElement(elementId, offsetY = -window.innerHeight * 0.3) {
 }
 
 function checkValidation() {
+  // Check if First Name is provided
+  if (!document.getElementById('First-Name-4').value) {
+    alert("Please add your First Name");
+    scrollToElement('First-Name-4');
+    return false;
+  }
+
+  // Check if Last Name is provided
+  if (!document.getElementById('Last-Name-4').value) {
+    alert("Please add your Last Name");
+    scrollToElement('Last-Name-4');
+    return false;
+  }
+  
   // Check if mental health role is selected
   if (!document.getElementById('mental-health-role-input').value) {
     alert("Please select your mental health role");
