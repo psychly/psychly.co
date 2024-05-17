@@ -41,7 +41,9 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
           }
         },
         frame: {
-          margin: '5%'
+          margin: '5%',
+          width: '90vw', // Adjust width for responsiveness
+          height: '90vh' // Adjust height for responsiveness
         }
       }
     }, function(error, result) {
