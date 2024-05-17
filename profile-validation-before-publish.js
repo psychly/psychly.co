@@ -7,6 +7,14 @@ function scrollToElement(elementId, offsetY = -window.innerHeight * 0.3) {
 }
 
 function checkValidation() {
+  // Check if mental health role is selected
+  if (!document.getElementById('mental-health-role-input').value) {
+    alert("Please select your mental health role");
+    scrollToElement('mental-health-role-input');
+    return false;
+  }
+
+function checkValidation() {
   // Check if at least one language is checked
   if (!document.querySelector('#language-input input[type="checkbox"]:checked')) {
     alert("Please add at least one language");
