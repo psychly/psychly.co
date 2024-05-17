@@ -42,7 +42,6 @@ function setupUploadWidget(buttonId, memberStackField, imageId) {
         },
         frame: {
           margin: '5%',
-          padding: '10%'
         }
       }
     }, function(error, result) {
