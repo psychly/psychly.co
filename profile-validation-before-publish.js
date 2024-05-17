@@ -14,8 +14,6 @@ function checkValidation() {
     return false;
   }
 
-function checkValidation() {
-  // Check if at least one language is checked
   if (!document.querySelector('#language-input input[type="checkbox"]:checked')) {
     alert("Please add at least one language");
     scrollToElement('language-input');
