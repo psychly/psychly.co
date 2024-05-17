@@ -77,12 +77,23 @@ function checkValidation() {
     return false;
   }
 
-  // Validate Practice Email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(document.getElementById('practice-main-email').value)) {
-    alert("Please add a valid Practice Email for patients");
+  // Check if Practice Email or Practice Phone is provided
+  const practiceEmail = document.getElementById('practice-main-email').value;
+  const practicePhone = document.getElementById('practice-main-phone').value;
+  if (!practiceEmail && !practicePhone) {
+    alert("Please provide either a Practice Email or a Practice Phone for patients");
     scrollToElement('practice-main-email');
     return false;
+  }
+
+  // Validate Practice Email if provided
+  if (practiceEmail) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(practiceEmail)) {
+      alert("Please add a valid Practice Email for patients");
+      scrollToElement('practice-main-email');
+      return false;
+    }
   }
 
   // Validate image URL
