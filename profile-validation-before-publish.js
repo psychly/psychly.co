@@ -142,7 +142,10 @@ function unhidePublishContainer() {
     setTimeout(function() {
       var container = document.getElementById('publish-profile-container');
       container.style.display = 'block'; // This will unhide the container
-    }, 500); // Adjust delay as necessary based on your application's needs
+      // Dispatch a custom event to indicate the modal is shown
+      var event = new Event('modalShown');
+      container.dispatchEvent(event);
+    }, 400); // Adjust delay as necessary based on your application's needs
   }
 }
 
