@@ -1,10 +1,15 @@
 <script>
-  // Function to unhide the 'profile-address-valid-container'
-  function unhideAddressContainer() {
+  // Function to click the 'save-profile-info-button'
+  function clickSaveProfileInfoButton() {
     var saveProfileInfoButton = document.getElementById('save-profile-info-button');
     if (saveProfileInfoButton) {
       saveProfileInfoButton.click(); // Simulate a click on the save-profile-info-button
     }
+  }
+
+  // Function to unhide the 'profile-address-valid-container'
+  function unhideAddressContainer() {
+    clickSaveProfileInfoButton(); // Click the save-profile-info-button
 
     var container = document.getElementById('profile-address-valid-container');
     container.style.display = 'block'; // This will unhide the container
